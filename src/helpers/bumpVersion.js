@@ -15,9 +15,18 @@ module.exports = async (releaseType, version) => {
 
   const prerelease = core.getBooleanInput('pre-release')
   const identifier = core.getInput('pre-release-identifier')
+  const nextReleaseVersion = core.getInput('pre-release-for')
 
   if (version) {
-    newVersion = semver.inc(version, (prerelease ? 'prerelease' : releaseType), identifier)
+    newVersion = prerelease && !semver.prerelease(version)
+      ? `${semver.inc(version, releaseType)}-${identifier}.0`
+      : semver.inc(version, (prerelease ? 'prerelease' : releaseType), identifier)
+
+    const { major, minor, patch } = semver.parse(newVersion)
+
+    if (prerelease && nextReleaseVersion && semver.lt(`${major}.${minor}.${patch}`, nextReleaseVersion)) {
+      newVersion = `${nextReleaseVersion}-${identifier}.0`
+    }
   } else {
 
     const fallbackVersion = core.getInput('fallback-version')

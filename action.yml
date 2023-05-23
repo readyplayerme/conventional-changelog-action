@@ -142,6 +142,11 @@ inputs:
     default: "false"
     required: false
 
+  pre-release-for:
+    description: "Identifies next release version"
+    default: ""
+    required: false
+
   pre-release-identifier:
     description: "The identifier to use for pre-releases"
     default: "rc"
