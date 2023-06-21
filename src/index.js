@@ -40,6 +40,7 @@ async function run() {
     const skipGitPull = core.getBooleanInput('skip-git-pull')
     const skipVersionFile = core.getBooleanInput('skip-version-file')
     const skipCommit = core.getBooleanInput('skip-commit')
+    const forcePush = core.getBooleanInput('force-push')
     const skipEmptyRelease = core.getBooleanInput('skip-on-empty')
     const skipTag = core.getBooleanInput('skip-tag')
     const conventionalConfigFile = core.getInput('config-file-path')
@@ -202,7 +203,7 @@ async function run() {
       if (gitPush) {
         try {
           core.info('Push all changes')
-          await git.push(gitBranch)
+          await git.push(gitBranch, forcePush)
 
         } catch (error) {
           console.error(error)

@@ -23,6 +23,7 @@ This action will bump version, tag commit and generate a changelog with conventi
 - **Optional** `skip-on-empty`: Boolean to specify if you want to skip empty release (no-changelog generated). This case occurred when you push `chore` commit with `angular` for example. Default `'true'`.
 - **Optional** `skip-version-file`: Do not update the version file. Default `'false'`.
 - **Optional** `skip-commit`: Do not create a release commit. Default `'false'`.
+- **Optional** `force-push`: Append --force to the git push command. Default `'false'`.
 - **Optional** `skip-tag`: Do not tag the release. Helpful for using action to check if a release is going to be made. Default `'false'`.
 - **Optional** `pre-commit`: Path to the pre-commit script file. No hook by default.
 - **Optional** `fallback-version`: The fallback version, if no older one can be detected, or if it is the first one. Default `'0.1.0'`. If `pre-release`is set to `true` it will default to the configured pre-release format (i.e. `'0.1.0-rc.0'`)
