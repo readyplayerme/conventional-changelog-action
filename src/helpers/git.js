@@ -18,9 +18,9 @@ module.exports = new (class Git {
     if (ENV === 'dont-use-git') {
       this.exec = (command) => {
         const fullCommand = `git ${command}`
-        
+
         console.log(`Skipping "${fullCommand}" because of test env`)
-        
+
         if (!fullCommand.includes('git remote set-url origin')) {
           this.commandsRun.push(fullCommand)
         }
@@ -123,8 +123,8 @@ module.exports = new (class Git {
    *
    * @return {Promise<>}
    */
-  push = (branch) => (
-    this.exec(`push origin ${branch} --follow-tags`)
+  push = (branch, forcePush) => (
+    this.exec(`push origin ${branch} --follow-tags ${forcePush ? '--force' : ''}`)
   )
 
   /**
@@ -186,7 +186,7 @@ module.exports = new (class Git {
 
       if(!SKIPPED_TAG) {
         expectedCommands.push(`git tag -a ${EXPECTED_TAG} -m "${EXPECTED_TAG}"`)
-      } 
+      }
 
       if (!EXPECTED_NO_PUSH) {
         expectedCommands.push(`git push origin ${branch} --follow-tags`)
